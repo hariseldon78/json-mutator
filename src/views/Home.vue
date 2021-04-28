@@ -47,7 +47,13 @@ export default class Home extends Vue {
     mutate(){
         const obj=JSON.parse(this.input);
         const combs=this.combinations;
-        this.output=JSON.stringify(this.combinations,null,4);
+        const res=[];
+        for(const comb of combs){
+            const mutated=_.cloneDeep(obj);
+            Object.keys(comb).forEach(f=>_.set(mutated,f,comb[f]));
+            res.push(mutated)
+        }
+        this.output=JSON.stringify(res,null,4);
     }
     get combinations(){
         let res=[];
